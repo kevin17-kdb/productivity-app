@@ -52,6 +52,7 @@ from schemas import (
     Token,
     ChatRequest,
     SubjectRequest,
+    QuizRequest,
     RenameConversation
 )
 
@@ -81,7 +82,8 @@ from gemini import (
     generate_quiz,
     generate_flashcards,
     generate_summary,
-    generate_important_questions
+    generate_important_questions,
+    detect_subject
 )
 
 # ----------------------------------------------------
@@ -813,7 +815,7 @@ def get_chat(
 # ==========================================================
 
 @app.post("/quiz")
-def quiz(request: SubjectRequest):
+def quiz(request: QuizRequest):
 
     try:
 
@@ -837,7 +839,7 @@ def quiz(request: SubjectRequest):
 
         context = "\n\n".join(chunks)
 
-        quiz_text = generate_quiz(context)
+        quiz_text = generate_quiz(context, request.count)
 
         return {
 
@@ -1054,3 +1056,61 @@ def rename_chat(
         "message": "Conversation renamed."
 
     }
+
+
+# ==========================================================
+# DETECT SUBJECT
+# ==========================================================
+
+@app.post("/detect-subject")
+async def detect_pdf_subject(
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user)
+):
+    if not file.filename.lower().endswith(".pdf"):
+        raise HTTPException(
+            status_code=400,
+            detail="Only PDF files are allowed."
+        )
+
+    # Save to temp location to parse
+    temp_dir = "temp_uploads"
+    os.makedirs(temp_dir, exist_ok=True)
+    temp_path = os.path.join(temp_dir, file.filename)
+
+    try:
+        with open(temp_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        extracted_text = extract_text(temp_path)
+        if not extracted_text.strip():
+            raise HTTPException(
+                status_code=400,
+                detail="No readable text found in PDF."
+            )
+
+        subject = detect_subject(extracted_text)
+        return {"subject": subject}
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+    finally:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+
+
+# ==========================================================
+# GET SUBJECTS
+# ==========================================================
+
+@app.get("/subjects")
+def get_user_subjects(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    subjects = db.query(Subject).filter(Subject.user_id == current_user.id).all()
+    return [s.name for s in subjects]
+

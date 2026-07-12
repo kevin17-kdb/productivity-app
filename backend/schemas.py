@@ -75,6 +75,13 @@ class SubjectRequest(BaseModel):
     subject: str
 
 
+class QuizRequest(BaseModel):
+
+    subject: str
+
+    count: int = 10
+
+
 # =====================================================
 # RENAME CONVERSATION
 # =====================================================

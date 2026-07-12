@@ -87,26 +87,45 @@ Question:
 # Quiz Generator
 # ----------------------------------------------------
 
-def generate_quiz(context):
+def generate_quiz(context, count=10):
 
-    prompt = f"""
-You are an experienced university professor.
+    prompt = f"""You are an experienced university professor.
 
-Using ONLY the uploaded study notes, generate exactly 10 MCQs.
+Using ONLY the uploaded study notes, generate exactly {count} unique MCQ questions.
 
-Rules:
+IMPORTANT RULES:
+- No duplicate questions - every question must test a DIFFERENT concept
+- Each question must have exactly 4 options labeled A, B, C, D
+- Return ONLY valid JSON array - no markdown fences, no text before or after
 
-- 4 options
-- Mention the correct answer
-- Give a one-line explanation
-- Markdown formatting
-- University exam level
+Return a JSON array exactly like this:
+[
+  {{"question": "Question text?", "options": {{"A": "...", "B": "...", "C": "...", "D": "..."}}, "answer": "B", "explanation": "Why B is correct."}}
+]
 
 Study Notes:
 {context}
 """
 
     return generate_response(prompt, 0.3)
+
+
+# ----------------------------------------------------
+# Detect Subject
+# ----------------------------------------------------
+
+def detect_subject(text_sample):
+
+    prompt = f"""Read the following text from a PDF and identify the academic subject.
+
+Return ONLY the subject name as 2-5 words (e.g. "Digital Signal Processing", "Probability Theory"). Nothing else.
+
+Text:
+{text_sample[:2000]}
+"""
+
+    return generate_response(prompt, 0.1).strip()
+
 
 
 # ----------------------------------------------------

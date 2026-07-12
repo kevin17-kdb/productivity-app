@@ -2,23 +2,14 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 
 function Layout() {
-
     return (
-
-        <div className="flex min-h-screen bg-slate-950 text-white">
-
+        <div style={{ display:"flex", minHeight:"100vh" }}>
             <Sidebar />
-
-            <main className="flex-1 min-h-screen overflow-y-auto">
-
+            <main style={{ flex:1, minHeight:"100vh", overflowY:"auto", position:"relative" }}>
                 <Outlet />
-
             </main>
-
         </div>
-
     );
-
 }
 
 export default Layout;

@@ -1,28 +1,95 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@500;600;700&display=swap');
 
+/* ─── Design tokens ─────────────────────────────────────── */
 @theme {
-  --color-bg: #0B0E1A;
-  --color-surface: #151A2E;
-  --color-surface-hover: #1C2340;
-  --color-border: #262D4A;
-  --color-muted: #8B93B8;
-  --color-accent: #7C6FF0;
-  --color-warm: #F0A857;
-  --font-display: "Fraunces", serif;
-  --font-body: "Inter", ui-sans-serif, sans-serif;
+  --color-bg:           #07061a;
+  --color-surface:      rgba(255,255,255,0.045);
+  --color-surface-hover:rgba(255,255,255,0.075);
+  --color-border:       rgba(109,89,238,0.22);
+  --color-muted:        rgba(180,172,230,0.65);
+  --color-accent:       #7c6ff0;
+  --color-warm:         #f0a857;
+  --font-display: "Sora", "Inter", ui-sans-serif, sans-serif;
+  --font-body:    "Inter", ui-sans-serif, sans-serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+/* ─── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+/* ─── Base ──────────────────────────────────────────────── */
 body {
-  min-height: 100vh;
-  background: var(--color-bg);
-  color: #F4F1EA;
+  min-height:100vh;
+  background: #07061a;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(109,89,238,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 90%, rgba(79,63,203,0.12) 0%, transparent 55%);
+  background-attachment: fixed;
+  color: #e8e4f8;
   font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
 }
 
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: var(--color-surface); }
-::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 8px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
+/* ─── Glass utility ─────────────────────────────────────── */
+.glass {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(109,89,238,0.2);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.glass-strong {
+  background: rgba(28,24,72,0.75);
+  border: 1px solid rgba(109,89,238,0.3);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(109,89,238,0.35); border-radius:8px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(124,111,240,0.6); }
+
+/* ─── Animations ────────────────────────────────────────── */
+@keyframes float {
+  0%,100% { transform:translateY(0px); }
+  50%      { transform:translateY(-18px); }
+}
+@keyframes float-slow {
+  0%,100% { transform:translateY(0px) rotate(0deg); }
+  50%      { transform:translateY(-14px) rotate(4deg); }
+}
+@keyframes pulse-glow {
+  0%,100% { opacity:.55; transform:scale(1); }
+  50%      { opacity:1;   transform:scale(1.1); }
+}
+@keyframes shimmer {
+  0%   { background-position:-200% center; }
+  100% { background-position:200% center; }
+}
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.animate-float       { animation: float 6s ease-in-out infinite; }
+.animate-float-slow  { animation: float-slow 7.5s ease-in-out infinite; }
+.animate-pulse-glow  { animation: pulse-glow 4s ease-in-out infinite; }
+.animate-fade-in-up  { animation: fadeInUp 0.4s ease forwards; }
+
+/* ─── Select / input overrides ──────────────────────────── */
+select, option {
+  background: #12103a;
+  color: #e8e4f8;
+}
+input[type="file"]::file-selector-button {
+  background: linear-gradient(135deg,#7c6ff0,#5a48d8);
+  color:#fff; border:none; border-radius:8px;
+  padding:8px 16px; font-size:13px; font-weight:600;
+  cursor:pointer; margin-right:12px;
+  transition: box-shadow .2s;
+}
+input[type="file"]::file-selector-button:hover {
+  box-shadow: 0 4px 16px rgba(109,89,238,0.5);
+}
