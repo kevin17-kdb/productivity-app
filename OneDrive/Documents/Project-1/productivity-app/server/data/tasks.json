@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "z7x3ic6mrhudmb5",
+    "completed": true,
+    "attachments": [],
+    "privateNotes": [],
+    "workspace": "44s4djxmrhubr6e",
+    "title": "Chemistry chapter 2",
+    "type": "daily",
+    "date": "2026-07-12T13:41:22.046Z",
+    "hourSlot": "20:00",
+    "deadline": "2026-07-12T13:42:00.000Z",
+    "category": "General",
+    "assignedTo": "swsfdvcmrhu2o3z",
+    "createdBy": "swsfdvcmrhu2o3z",
+    "createdAt": "2026-07-12T13:41:22.097Z",
+    "updatedAt": "2026-07-12T13:57:36.743Z"
+  },
+  {
+    "_id": "220uxqfmrhxh1jq",
+    "completed": false,
+    "attachments": [
+      {
+        "fileName": "Text book",
+        "url": "file:///C:/Users/adaba/OneDrive/Documents/Engineering/4th%20sem/EMI/lissajous%20methods%20(1).pdf",
+        "uploadedBy": "swsfdvcmrhu2o3z"
+      }
+    ],
+    "privateNotes": [],
+    "workspace": "44s4djxmrhubr6e",
+    "title": "chemistry chapter 1",
+    "type": "daily",
+    "date": "2026-07-12T15:08:00.650Z",
+    "hourSlot": "21:00",
+    "deadline": "2026-07-12T15:08:00.000Z",
+    "category": "Studying",
+    "assignedTo": null,
+    "createdBy": "swsfdvcmrhu2o3z",
+    "createdAt": "2026-07-12T15:08:00.662Z",
+    "updatedAt": "2026-07-12T15:08:38.947Z"
+  }
+]
