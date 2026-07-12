@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+@theme {
+  --color-bg: #0B0E1A;
+  --color-surface: #151A2E;
+  --color-surface-hover: #1C2340;
+  --color-border: #262D4A;
+  --color-muted: #8B93B8;
+  --color-accent: #7C6FF0;
+  --color-warm: #F0A857;
+  --font-display: "Fraunces", serif;
+  --font-body: "Inter", ui-sans-serif, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: #F4F1EA;
+  font-family: var(--font-body);
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
